@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetBool("Run", false);
 
         if (Input.GetKey(KeyCode.W))
         { 
@@ -41,6 +42,20 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Jump");
         }
 
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Coliddeed with" + collision.gameObject.name);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Tringger By " + other.gameObject.name);
+
+        if (other.CompareTag("Coin"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }
