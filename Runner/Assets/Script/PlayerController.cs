@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 10f;
 
     public Animator animator;
+    public GameObject GameOverText;
 
     // Start is called before the first frame update
     void Start()
@@ -17,13 +19,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("Run", false);
+        //animator.SetBool("Run", false);
 
+        transform.position += new Vector3(0, 0, 1) * Time.deltaTime * moveSpeed;
+        animator.SetBool("Run", true);
+
+        /**
         if (Input.GetKey(KeyCode.W))
         { 
-            transform.position += new Vector3(0, 0, 1) * Time.deltaTime * moveSpeed;
-            animator.SetBool("Run",true);
+           
         }
+        **/
 
 
         if (Input.GetKey(KeyCode.A))
@@ -44,18 +50,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
+   
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Coliddeed with" + collision.gameObject.name);
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Tringger By " + other.gameObject.name);
-
-        if (other.CompareTag("Coin"))
+        if (collision.gameObject.CompareTag("Obstacles"))
         {
-            Destroy(other.gameObject);
+            Debug.Log("Game over....");
+            Time.timeScale = 0;
+            GameOverText.gameObject.SetActive(true);
         }
+
     }
+
+    /**
+
+   private void OnTriggerEnter(Collider other)
+   {
+       Debug.Log("Tringger By " + other.gameObject.name);
+
+       if (other.CompareTag("Coin"))
+       {
+           Destroy(other.gameObject);
+       }
+   }
+   **/
 }
