@@ -74,8 +74,15 @@ public class EndlessLevelGenerator : MonoBehaviour
     {
         if (player.position.z - safeZone > (spawnZ - tilesOnScreen * tileLength))
         {
-            SpawnTile(); 
+            SpawnTile();
+            DeleteTile();
         }
+    }
+
+    void DeleteTile()
+    {
+        Destroy(activeTiles[0]);
+        activeTiles.RemoveAt(0);
     }
 
 }

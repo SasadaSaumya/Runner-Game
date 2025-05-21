@@ -9,11 +9,14 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
     public GameObject GameOverText;
+    public GameObject GameOverBtn;
+
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Space))
         {
-            transform.position += new Vector3(0, 1, 0) * Time.deltaTime * moveSpeed;
+            transform.position += new Vector3(0, 2, 0) * Time.deltaTime * moveSpeed;
             animator.SetTrigger("Jump");
         }
 
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Game over....");
             Time.timeScale = 0;
             GameOverText.gameObject.SetActive(true);
+            GameOverBtn.gameObject.SetActive(true);
+
         }
 
     }
